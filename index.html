@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>Kedai Mie Mamaw - Lezatnya Bikin Nagih!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --merah: #E63946;
+            --merah-gelap: #C1121F;
+            --kuning: #FFD166;
+            --kuning-muda: #FFF3D0;
+            --putih: #FDFDFD;
+            --hitam: #333333;
+            --abu: #666;
+            --shadow: 0 4px 20px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--putih);
+            color: var(--hitam);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Image Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            overflow: auto;
+            animation: fadeIn 0.3s;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            object-fit: contain;
+            animation: fadeIn 0.4s;
+        }
+
+        .modal-order-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            margin: auto;
+            animation: fadeIn 0.4s;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            transition: var(--transition);
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .close:hover {
+            color: var(--kuning);
+            transform: rotate(90deg);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--merah), var(--merah-gelap));
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateX(5px);
+        }
+
+        .logo img {
+            height: 45px;
+            margin-right: 10px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .cta-button {
+            background-color: var(--kuning);
+            color: var(--hitam);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            background-color: #ffc233;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+            padding: 6rem 1rem;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23FDFDFD" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23FDFDFD" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23FDFDFD"/></svg>');
+            background-size: cover;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--kuning);
+            color: var(--hitam);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 209, 102, 0.4);
+            animation: pulse 1.5s infinite;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255,255,255,0.2);
+        }
+
+        /* Menu Section */
+        .section-title {
+            text-align: center;
+            margin: 5rem 0 3rem;
+            color: var(--merah);
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--kuning);
+            border-radius: 2px;
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .menu-item-img-container {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        .menu-item-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .menu-item:hover .menu-item-img {
+            transform: scale(1.05);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--merah);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .menu-item-details {
+            padding: 1.8rem;
+        }
+
+        .item-name {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--merah);
+            font-weight: 700;
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: var(--hitam);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .item-price::before {
+            content: 'Rp';
+            font-size: 0.9rem;
+            margin-right: 3px;
+            color: var(--merah);
+        }
+
+        .item-desc {
+            color: var(--abu);
+            margin-bottom: 1.8rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .order-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--merah);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+            gap: 8px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .order-btn:hover {
+            background-color: var(--merah-gelap);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(230, 57, 70, 0.3);
+        }
+
+        /* Testimonial Section */
+        .testimonial {
+            background-color: var(--kuning-muda);
+            padding: 6rem 1rem;
+            margin-top: 5rem;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23FFF3D0" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23FFF3D0" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23FFF3D0"/></svg>');
+            background-size: cover;
+            z-index: 1;
+        }
+
+        .testimonial-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial .section-title {
+            color: var(--merah);
+            margin-bottom: 4rem;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-card::before {
+            content: '\201C';
+            font-family: Georgia, serif;
+            font-size: 5rem;
+            color: rgba(230, 57, 70, 0.1);
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--merah);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .testimonial-author::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 2px;
+            background-color: var(--kuning);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn-testimonial {
+            background-color: var(--merah);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 3rem auto 0;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .btn-testimonial:hover {
+            background-color: var(--merah-gelap);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+        }
+
+        /* Location Section */
+        .location {
+            padding: 6rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 992px) {
+            .location-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .map-container {
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .map-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .info-box {
+            background-color: var(--kuning-muda);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .info-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 209, 102, 0.2);
+        }
+
+        .info-title {
+            color: var(--merah);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .info-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--merah);
+        }
+
+        .info-item {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .info-item i {
+            color: var(--merah);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+
+        .info-item span {
+            flex: 1;
+        }
+
+        .info-item a {
+            color: var(--hitam);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .info-item a:hover {
+            color: var(--merah);
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--hitam), #111);
+            color: white;
+            padding: 5rem 1rem 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23333" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23333" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23333"/></svg>');
+            background-size: cover;
+            z-index: 1;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.8rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .social-link:hover {
+            color: var(--kuning);
+            transform: translateY(-5px) scale(1.1);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .footer-contact {
+            margin-bottom: 3rem;
+        }
+
+        .footer-cta {
+            background-color: var(--merah);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+        }
+
+        .footer-cta:hover {
+            background-color: var(--merah-gelap);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+        }
+
+        .copyright {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-top: 3rem;
+        }
+
+        /* Floating WhatsApp Button */
+        .floating-wa {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+            z-index: 999;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .floating-wa:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+            animation: none;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .modal-content {
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 1rem;
+                background-attachment: scroll;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .menu-container {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .modal-content {
+                width: 95%;
+                max-height: 60vh;
+                margin-top: 20vh;
+            }
+            
+            .close {
+                top: 15px;
+                right: 25px;
+                font-size: 35px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .hero p {
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+                margin: 3rem 0 2rem;
+            }
+            
+            .menu-item-details {
+                padding: 1.2rem;
+            }
+            
+            .item-name {
+                font-size: 1.2rem;
+            }
+            
+            .item-price {
+                font-size: 1.1rem;
+            }
+            
+            .item-desc {
+                font-size: 0.85rem;
+            }
+            
+            .testimonial-card {
+                padding: 1.2rem;
+            }
+            
+            .testimonial-text {
+                font-size: 0.9rem;
+            }
+            
+            .info-box {
+                padding: 1.2rem;
+            }
+            
+            .info-title {
+                font-size: 1.4rem;
+            }
+            
+            .social-links {
+                gap: 1rem;
+            }
+            
+            .social-link {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .footer-cta {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .floating-wa {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+                bottom: 15px;
+                right: 15px;
+            }
+            .social-link {
+                text-decoration: none;
+                color: inherit;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-weight: bold;
+ }
+.social-link i {
+  color: #ee4d2d; /* Warna khas Shopee */
+  font-size: 18px;
+}
+
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
+            .cta-button {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Landscape orientation adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .modal-content {
+                max-height: 80vh;
+                margin-top: 10vh;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* Touch optimization */
+        button, a, input[type="button"], input[type="submit"], .order-btn, .btn {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        /* Prevent zoom on double-tap */
+        @media (pointer: coarse) {
+            input, textarea, select {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <!-- Order Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-order-content">
+            <span class="close" onclick="closeOrderModal()">&times;</span>
+            <h3 style="color: var(--merah); margin-bottom: 1rem;">Pesan <span id="itemName"></span></h3>
+            <p style="margin-bottom: 1rem;">Harga: <span id="itemPrice"></span></p>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label for="quantity" style="display: block; margin-bottom: 0.5rem;">Jumlah:</label>
+                <input type="number" id="quantity" min="1" value="1" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+            </div>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label for="specialNote" style="display: block; margin-bottom: 0.5rem;">Catatan Khusus (optional):</label>
+                <textarea id="specialNote" rows="3" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;" placeholder="Contoh: Pedas level 3, Tidak pakai daun bawang, dll"></textarea>
+            </div>
+            
+            <button onclick="sendWhatsAppOrder()" style="background-color: var(--merah); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; width: 100%;">
+                <i class="fab fa-whatsapp"></i> Kirim via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo">
+                <img src="logo mamaw.png" alt="Logo Kedai Mie Mamaw">
+                Kedai Mie Mamaw
+            </a>
+           
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Lezatnya Bikin Nagih!</h1>
+            <p>"Rasakan kenikmatan makanan spesial kami dengan bumbu rahasia"</p>
+            <div class="button-group">
+                <a href="menu.html" class="btn btn-primary">
+                    <i class="fas fa-utensils"></i> Lihat Menu
+                </a>
+                <a href="https://wa.me/6285972842296" class="btn btn-secondary">
+                    <i class="fab fa-whatsapp"></i> Order via WA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <h2 class="section-title">MENU ANDALAN KAMI</h2>
+        <div class="menu-container">
+            <!-- Menu Item 1 -->
+            <div class="menu-item">
+               <!-- Contoh perubahan untuk satu item menu -->
+                     <div class="menu-item-img-container" onclick="openModal('img/miejbw.png')">
+                        <img src="img/miejbw.png" alt="Mie Jeubew" class="menu-item-img">
+                        <span class="popular-badge">Best Seller</span>
+                     </div>
+                <div class="menu-item-details">
+                    <h3 class="item-name">Mie Jeubew</h3>
+                    <p class="item-price">12.000</p>
+                    <p class="item-desc">"Mie gurih khas Mamaw dengan sentuhan rempah pilihan. Rasanya nendang, pedasnya ngangenin, cocok buat pencinta mie sejati!"</p>
+                    <a href="#" class="order-btn" onclick="openOrderModal('Mie Jeubew', 12000)">
+                        <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                    </a>
+                </div>
+            </div>
+
+            <!-- Menu Item 2 -->
+            <div class="menu-item">
+                <div class="menu-item-img-container" onclick="openModal('img/pangsit2.png')">
+                    <img src="img/pangsit2.png" alt="Wonton Chilli Oil" class="menu-item-img">
+                    <span class="popular-badge">New</span>
+                </div>
+                <div class="menu-item-details">
+                    <h3 class="item-name">Wonton Chilli Oil</h3>
+                    <p class="item-price">12.000</p>
+                    <p class="item-desc">"Pangsit rebus isi daging ayam pilihan, disiram minyak cabai khas Mamaw yang wangi dan pedasnya nampol! Gurih, pedas, dan nagih dalam satu suapan! Memiliki Level Kepedasan 1-5"</p>
+                    <a href="#" class="order-btn" onclick="openOrderModal('Wonton Chilli Oil', 18000)">
+                        <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                    </a>
+                </div>
+            </div>
+
+            <!-- Menu Item 3 -->
+            <div class="menu-item">
+                <div class="menu-item-img-container" onclick="openModal('img/baso2.png')">
+                    <img src="img/baso2.png" alt="Bakso Urat Keju Mercon" class="menu-item-img">
+                </div>
+                <div class="menu-item-details">
+                    <h3 class="item-name">Bakso Urat Keju Sambel Mercon</h3>
+                    <p class="item-price">13.000</p>
+                    <p class="item-desc">"Bakso urat isi keju lumer, disiram sambel mercon khas Mamaw yang super pedas dan nendang! Cocok buat pencinta pedas ekstrem - siap-siap keringetan puas!"</p>
+                    <a href="#" class="order-btn" onclick="openOrderModal('Bakso Urat Keju Mercon', 15000)">
+                        <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                    </a>
+                </div>
+            </div>
+
+            <!-- Menu Item 4 -->
+            <div class="menu-item">
+                <div class="menu-item-img-container" onclick="openModal('img/udang rambutan.png')">
+                    <img src="img/udang rambutan.png" alt="Udang Rambutan" class="menu-item-img">
+                </div>
+                <div class="menu-item-details">
+                    <h3 class="item-name">Udang Rambutan</h3>
+                    <p class="item-price">12.000</p>
+                    <p class="item-desc">"Udang pilihan dibalut mie renyah menyerupai rambut rambutan, digoreng hingga keemasan. Renyah di luar, juicy di dalam - camilan premium yang bikin nagih! Beisi 3 pcs"</p>
+                    <a href="#" class="order-btn" onclick="openOrderModal('Udang Rambutan', 22000)">
+                        <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonial">
+        <div class="testimonial-container">
+            <h2 class="section-title">TESTIMONI PELANGGAN</h2>
+            
+            <div class="testimonial-grid">
+                <!-- Testimoni 1 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Awalnya cuma coba-coba, eh malah jadi langganan! Mie Mamaw pedesnya mantap, topping-nya gak pelit!"</p>
+                    <p class="testimonial-author">— Rizky, Mahasiswa</p>
+                </div>
+                
+                <!-- Testimoni 2 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Wonton Chilli Oil-nya bener-bener bikin kaget! Pedasnya pas, dagingnya berasa. Worth it banget buat harga segini!"</p>
+                    <p class="testimonial-author">— Nadya, Karyawan Kantoran</p>
+                </div>
+                
+                <!-- Testimoni 3 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Bakso Urat Keju Mercon? Seriusan, ini bakso paling nikmat yang pernah gue makan. Pedesnya nampol, kejunya meleleh pas!"</p>
+                    <p class="testimonial-author">— Hendri, Warga Mamaw</p>
+                </div>
+            </div>
+            
+            <div class="testimonial-grid hidden" id="more-testimonials">
+                <!-- Testimoni 4 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Pangsit gorengnya renyah dan gurih. Tiap beli selalu nambah pesenan pangsit!"</p>
+                    <p class="testimonial-author">- Doni, BSD</p>
+                </div>
+                
+                <!-- Testimoni 5 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Udang Rambutan-nya renyah banget! Cocok buat camilan sore bareng teh manis. Favorite banget pokoknya!"</p>
+                    <p class="testimonial-author">— Vina, Pelajar SMA</p>
+                </div>
+                
+                <!-- Testimoni 6 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Kuah Ramen Tori Miso-nya kaya rasa dan bikin nyaman! Rasanya tuh Jepang banget tapi tetap cocok di lidah lokal!"</p>
+                    <p class="testimonial-author">— Intan, Pecinta Ramen</p>
+                </div>
+            </div>
+            
+            <button id="toggle-testimonials" class="btn-testimonial">
+                Lihat Semua Testimoni <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location">
+        <h2 class="section-title">LOKASI KAMI</h2>
+        <div class="location-grid">
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.85412541529419!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTEnNDEuMSJTIDEwNsKwNTEnMjEuOSJF!5e0!3m2!1sen!2sid!4v1620000000000!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="info-box">
+                <h3 class="info-title">Kedai Mie Mamaw</h3>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Gerbang Perumahan Jayasampurna</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Buka Setiap Hari, 09.00 - 21.00 WIB</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span><a href="tel:085972842296">+62 859-7284-2296</a></span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Juga tersedia di Shopee Food dan GoFood</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Tersedia versi Frozen</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span> Menerima pesanan partai besar</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links" style="max-width: 400px; margin: 0 auto; justify-content: center; display: flex; flex-wrap: nowrap; gap: 2rem;">
+            <a href="https://www.tiktok.com/@kedai_mie_mamaw" class="social-link" target="_blank" aria-label="TikTok" style="display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.1); box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: var(--transition); color: white; font-size: 1.8rem;">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://shopee.co.id/food/kedai-mie-mamaw" class="social-link" target="_blank" aria-label="Shopee Food" style="display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.1); box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: var(--transition); color: white; font-size: 1.8rem;">
+                <i class="fas fa-shopping-bag"></i>
+            </a>
+            <a href="https://wa.me/6285972842296?text=Halo%2C%20saya%20ingin%20pesan%20makanan" 
+               class="social-link" 
+               target="_blank" 
+               aria-label="WhatsApp" style="display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.1); box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: var(--transition); color: white; font-size: 1.8rem;">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+        
+        <p class="copyright" style="margin-top: 3rem; font-size: 1rem; color: rgba(255,255,255,0.8); font-weight: 500;">
+            © 2023 Kedai Mie Mamaw — Rasakan Lezatnya, Ingat Selalu!
+        </p>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/6285972842296?text=Halo%2C%20saya%20ingin%20pesan%20makanan" class="floating-wa" target="_blank" aria-label="Chat via WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+ <script>
+     // Enhanced Image Modal Functionality with error handling
+    function openModal(imageSrc) {
+        console.log("Attempting to open modal with image:", imageSrc);
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+    
+        if (!modal || !modalImg) {
+            console.error("Modal elements not found!");
+            return;
+        }
+    
+        modal.style.display = "flex";
+        
+        // Create new image to check if it loads properly
+        const testImg = new Image();
+        testImg.onload = function() {
+            // Set image source directly (no need to prepend 'gambar/' since we're using correct paths)
+            modalImg.src = imageSrc;
+            console.log("Image loaded successfully:", modalImg.src);
+        };
+        testImg.onerror = function() {
+            console.error("Failed to load image:", imageSrc);
+            modalImg.src = 'img/default.jpg'; // Fallback image
+            alert('Gambar tidak ditemukan, menggunakan gambar default');
+        };
+        testImg.src = imageSrc;
+        
+        document.body.style.overflow = 'hidden';
+    }
+
+
+    function closeImageModal() {
+        const modal = document.getElementById('imageModal');
+        if (modal) {
+            modal.style.display = "none";
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    // Initialize all modal functionality when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // Close button
+        const closeBtn = document.querySelector('#imageModal .close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeImageModal);
+        }
+
+        // Close when clicking outside
+        const modal = document.getElementById('imageModal');
+        if (modal) {
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeImageModal();
+                }
+            });
+        }
+
+        // Close with ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeImageModal();
+                closeOrderModal();
+            }
+        });
+
+        // Debug: Verify all menu images
+        const menuImages = document.querySelectorAll('.menu-item-img-container');
+        console.log("Found", menuImages.length, "menu images");
+        menuImages.forEach((container, index) => {
+            const img = container.querySelector('img');
+            console.log(`Image ${index + 1}:`, img ? img.src : 'No image found');
+            
+            // Add error handling for menu images
+            if (img) {
+                img.onerror = function() {
+                    console.error("Failed to load menu image:", this.src);
+                    this.src = 'gambar/default.jpg';
+                };
+            }
+        });
+    });
+
+    // Order Modal Functions
+    let currentItem = {};
+    
+    function openOrderModal(name, price) {
+        currentItem = {
+            name: name,
+            price: price
+        };
+        
+        document.getElementById('itemName').textContent = name;
+        document.getElementById('itemPrice').textContent = 'Rp' + price.toLocaleString('id-ID');
+        document.getElementById('quantity').value = 1;
+        document.getElementById('specialNote').value = '';
+        document.getElementById('orderModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeOrderModal() {
+        document.getElementById('orderModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+    function sendWhatsAppOrder() {
+        const quantity = document.getElementById('quantity').value;
+        const specialNote = document.getElementById('specialNote').value;
+        
+        // Validation
+        if (quantity < 1) {
+            alert('Jumlah pesanan minimal 1');
+            return;
+        }
+        
+        let message = `Halo Kedai Mie Mamaw, saya ingin memesan:\n`;
+        message += `*${currentItem.name}*\n`;
+        message += `Jumlah: ${quantity}\n`;
+        message += `Total: Rp${(currentItem.price * quantity).toLocaleString('id-ID')}\n`;
+        
+        if (specialNote) {
+            message += `\nCatatan: ${specialNote}\n`;
+        }
+        
+        message += `\nTerima kasih!`;
+        
+        const encodedMessage = encodeURIComponent(message);
+        window.open(`https://wa.me/6285972842296?text=${encodedMessage}`, '_blank');
+        
+        closeOrderModal();
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        const orderModal = document.getElementById('orderModal');
+        if (event.target == orderModal) {
+            closeOrderModal();
+        }
+        
+        const imageModal = document.getElementById('imageModal');
+        if (event.target == imageModal) {
+            closeImageModal();
+        }
+    });
+
+    // Script for toggle testimoni
+    document.getElementById('toggle-testimonials').addEventListener('click', function() {
+        const moreTestimonials = document.getElementById('more-testimonials');
+        const button = this;
+        
+        if (moreTestimonials.classList.contains('hidden')) {
+            moreTestimonials.classList.remove('hidden');
+            button.innerHTML = 'Sembunyikan Testimoni <i class="fas fa-chevron-up"></i>';
+        } else {
+            moreTestimonials.classList.add('hidden');
+            button.innerHTML = 'Lihat Semua Testimoni <i class="fas fa-chevron-down"></i>';
+        }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+    <!-- Add Cancel button to Order Modal -->
+    <style>
+        #orderModal .modal-order-content button.cancel-btn {
+            background: none;
+            border: 1px solid #ddd;
+            color: #333;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        #orderModal .modal-order-content button.cancel-btn:hover {
+            background: #f5f5f5;
+        }
+    </style>
+
+    <script>
+        // Add Cancel button to order modal dynamically
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderModalContent = document.querySelector('#orderModal .modal-order-content');
+            if (orderModalContent && !document.querySelector('#orderModal .cancel-btn')) {
+                const cancelBtn = document.createElement('button');
+                cancelBtn.textContent = 'Batal';
+                cancelBtn.className = 'cancel-btn';
+                cancelBtn.setAttribute('aria-label', 'Batal memesan'); // Added aria-label for accessibility
+                cancelBtn.addEventListener('click', closeOrderModal);
+                orderModalContent.appendChild(cancelBtn);
+            }
+        });
+    </script>
+</body>
+</html>
